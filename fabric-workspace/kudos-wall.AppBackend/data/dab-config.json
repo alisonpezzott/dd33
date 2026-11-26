@@ -1,0 +1,81 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "entities": {
+    "Kudos": {
+      "source": "Kudos",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            "create",
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "recipient": {
+            "dbType": "NVARCHAR(100)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "sender": {
+            "dbType": "NVARCHAR(100)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "message": {
+            "dbType": "NVARCHAR(280)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "category": {
+            "dbType": "NVARCHAR(30)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "createdAt": {
+            "dbType": "DATETIME2",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_Kudos",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [],
+          "checkConstraints": [
+            {
+              "name": "CK_Kudos_recipient_minlen",
+              "expression": "LEN([recipient]) \u003E= 1"
+            },
+            {
+              "name": "CK_Kudos_sender_minlen",
+              "expression": "LEN([sender]) \u003E= 1"
+            },
+            {
+              "name": "CK_Kudos_message_minlen",
+              "expression": "LEN([message]) \u003E= 1"
+            },
+            {
+              "name": "CK_Kudos_category_minlen",
+              "expression": "LEN([category]) \u003E= 1"
+            }
+          ],
+          "uniqueConstraints": []
+        }
+      },
+      "relationships": null,
+      "mappings": null
+    }
+  }
+}

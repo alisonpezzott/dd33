@@ -1,0 +1,34 @@
+table feedback
+	lineageTag: 597866e1-374d-4af3-9f9a-36c79e043164
+	sourceLineageTag: [dbo].[feedback]
+
+	column feedback_id
+		dataType: int64
+		lineageTag: ae5b2719-7f45-4000-a4e4-3c79f92b8660
+		summarizeBy: count
+		sourceColumn: feedback_id
+
+	column session_id
+		dataType: int64
+		lineageTag: 43a78030-42f5-416b-8ff2-9f78bba9ba70
+		summarizeBy: count
+		sourceColumn: session_id
+
+	column rating
+		dataType: int64
+		lineageTag: 946e7d75-5fe6-49b9-a209-a47551747bf3
+		summarizeBy: sum
+		sourceColumn: rating
+
+	column would_recommend
+		dataType: boolean
+		lineageTag: f98dab0a-02c5-46ea-8d26-aee593a6b5f3
+		summarizeBy: none
+		sourceColumn: would_recommend
+
+	partition feedback = entity
+		mode: directLake
+		source
+			entityName: feedback
+			expressionSource: DL_Lakehouse
+

@@ -1,0 +1,13 @@
+model Model
+	culture: en-US
+	collation: Latin1_General_100_BIN2_UTF8
+	defaultPowerBIDataSourceVersion: powerBI_V3
+
+annotation PBI_ProTooling = ["SLL"]
+
+ref table sessions
+ref table speakers
+ref table registrations
+ref table feedback
+ref table dates
+

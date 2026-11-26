@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Community Events"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "9f9ebcae-73e5-9315-4c66-c1cf37ce7c0d"
+  }
+}

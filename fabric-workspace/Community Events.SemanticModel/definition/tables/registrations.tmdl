@@ -1,0 +1,40 @@
+table registrations
+	lineageTag: 23920c42-116a-4e56-ac6e-a1202839a4bd
+	sourceLineageTag: [dbo].[registrations]
+
+	column registration_id
+		dataType: int64
+		lineageTag: d8ba6499-7dcf-4897-b064-931b5bbfd180
+		summarizeBy: count
+		sourceColumn: registration_id
+
+	column session_id
+		dataType: int64
+		lineageTag: a8021587-509e-4ea2-a31b-4fa211a1c03c
+		summarizeBy: count
+		sourceColumn: session_id
+
+	column attendee_region
+		dataType: string
+		lineageTag: 371d8dac-e497-4266-9475-f987675eb853
+		summarizeBy: none
+		sourceColumn: attendee_region
+
+	column registered_date
+		dataType: dateTime
+		lineageTag: f79ecbfa-05ee-4222-9017-af424117a7f6
+		summarizeBy: none
+		sourceColumn: registered_date
+
+	column attended
+		dataType: boolean
+		lineageTag: a53d1d12-0bab-4001-969c-37bf1cf77739
+		summarizeBy: none
+		sourceColumn: attended
+
+	partition registrations = entity
+		mode: directLake
+		source
+			entityName: registrations
+			expressionSource: DL_Lakehouse
+

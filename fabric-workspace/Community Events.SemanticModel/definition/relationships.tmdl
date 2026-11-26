@@ -1,0 +1,16 @@
+relationship Relationship
+	fromColumn: registrations.session_id
+	toColumn: sessions.session_id
+
+relationship 'Relationship 1'
+	fromColumn: feedback.session_id
+	toColumn: sessions.session_id
+
+relationship 'Relationship 2'
+	fromColumn: sessions.speaker_id
+	toColumn: speakers.speaker_id
+
+relationship 'Relationship 3'
+	fromColumn: sessions.session_date
+	toColumn: dates.date
+

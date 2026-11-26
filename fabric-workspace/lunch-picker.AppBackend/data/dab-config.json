@@ -1,0 +1,201 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "entities": {
+    "LunchBallot": {
+      "source": "LunchBallots",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "update",
+              "fields": {
+                "include": [
+                  "day",
+                  "place_id"
+                ],
+                "exclude": null
+              },
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "delete",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "owner_id": {
+            "dbType": "NVARCHAR(200)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "day": {
+            "dbType": "NVARCHAR(10)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "place_id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_LunchBallots",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [
+            {
+              "name": "FK_LunchBallots_place_id",
+              "columns": [
+                "place_id"
+              ],
+              "referencedTable": "LunchPlaces",
+              "referencedColumns": [
+                "id"
+              ]
+            }
+          ],
+          "checkConstraints": [
+            {
+              "name": "CK_LunchBallots_day_minlen",
+              "expression": "LEN([day]) \u003E= 10"
+            }
+          ],
+          "uniqueConstraints": [
+            {
+              "name": "UQ_LunchBallots_owner_id",
+              "columns": [
+                "owner_id"
+              ]
+            }
+          ]
+        }
+      },
+      "relationships": {
+        "place": {
+          "cardinality": "one",
+          "target.entity": "LunchPlace",
+          "source.fields": [
+            "place_id"
+          ],
+          "target.fields": [
+            "id"
+          ]
+        }
+      },
+      "mappings": null
+    },
+    "LunchPlace": {
+      "source": "LunchPlaces",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "update",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "delete",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "name": {
+            "dbType": "NVARCHAR(100)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "cuisine": {
+            "dbType": "NVARCHAR(40)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "budget": {
+            "dbType": "NVARCHAR(3)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "note": {
+            "dbType": "NVARCHAR(240)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "owner_id": {
+            "dbType": "NVARCHAR(200)",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_LunchPlaces",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [],
+          "checkConstraints": [
+            {
+              "name": "CK_LunchPlaces_name_minlen",
+              "expression": "LEN([name]) \u003E= 1"
+            },
+            {
+              "name": "CK_LunchPlaces_cuisine_minlen",
+              "expression": "LEN([cuisine]) \u003E= 1"
+            },
+            {
+              "name": "CK_LunchPlaces_budget_minlen",
+              "expression": "LEN([budget]) \u003E= 1"
+            }
+          ],
+          "uniqueConstraints": []
+        }
+      },
+      "relationships": null,
+      "mappings": null
+    }
+  }
+}

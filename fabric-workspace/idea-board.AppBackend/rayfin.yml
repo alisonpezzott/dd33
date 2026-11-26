@@ -1,0 +1,29 @@
+services:
+  auth:
+    expiryInMinutes: 60
+    password:
+      enabled: false
+    fabric:
+      enabled: true
+      externalEntraExchange: true
+    allowedRedirectUris:
+    - http://localhost:5173
+    - http://localhost:5174
+    - http://127.0.0.1:5174
+    - https://rapid-stem-bcc53edacf-centralus.webapp.fabricapps.net
+    - https://free-larch-5363a6f520-centralus.webapp.fabricapps.net
+    enabled: true
+  data:
+    dialect: mssql
+    allowIntrospection: false
+    enabled: true
+  storage:
+    enabled: false
+  staticHosting:
+    indexDocument: index.html
+    anonymousAccess: false
+    embedded:
+      only: false
+    enabled: true
+  functions:
+    enabled: false

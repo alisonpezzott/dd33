@@ -1,0 +1,27 @@
+services:
+  auth:
+    expiryInMinutes: 60
+    password:
+      enabled: false
+    fabric:
+      enabled: true
+      externalEntraExchange: true
+    allowedRedirectUris:
+    - http://localhost:5173
+    - http://localhost:5175
+    - http://127.0.0.1:5175
+    enabled: true
+  data:
+    dialect: mssql
+    allowIntrospection: false
+    enabled: true
+  storage:
+    enabled: false
+  staticHosting:
+    indexDocument: index.html
+    anonymousAccess: false
+    embedded:
+      only: false
+    enabled: true
+  functions:
+    enabled: false

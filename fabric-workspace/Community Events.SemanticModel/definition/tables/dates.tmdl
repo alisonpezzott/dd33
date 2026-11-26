@@ -1,0 +1,48 @@
+table dates
+	lineageTag: 433fb9a8-4452-4d73-9c78-8d0d6a2bdabd
+	sourceLineageTag: [dbo].[dates]
+	dataCategory: Time
+
+	column date
+		dataType: dateTime
+		isKey
+		lineageTag: c1148627-a04a-49f2-b744-398d7ceb5996
+		summarizeBy: none
+		sourceColumn: date
+
+	column year
+		dataType: int64
+		lineageTag: 3d2498b3-a71e-4e3a-b861-55d53c2137e0
+		summarizeBy: sum
+		sourceColumn: year
+
+	column month
+		dataType: string
+		lineageTag: e8eb56bc-3e11-41d8-aef2-4bc305441f4a
+		summarizeBy: none
+		sourceColumn: month
+
+	column month_number
+		dataType: int64
+		lineageTag: dffb707a-e6e5-43dc-921d-64564181bcb6
+		summarizeBy: sum
+		sourceColumn: month_number
+
+	column week_start
+		dataType: dateTime
+		lineageTag: 03fddd29-9f7f-4a15-9ed6-6ec6896900e1
+		summarizeBy: none
+		sourceColumn: week_start
+
+	column weekday
+		dataType: string
+		lineageTag: 71bb8552-77bb-49c8-a9fb-16659bb189ac
+		summarizeBy: none
+		sourceColumn: weekday
+
+	partition dates = entity
+		mode: directLake
+		source
+			entityName: dates
+			expressionSource: DL_Lakehouse
+

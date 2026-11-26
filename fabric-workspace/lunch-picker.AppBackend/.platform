@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "AppBackend",
+    "displayName": "lunch-picker"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a5329e88-3686-99c6-4248-44ad13a94637"
+  }
+}

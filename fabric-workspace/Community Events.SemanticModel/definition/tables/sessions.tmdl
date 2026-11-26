@@ -1,0 +1,103 @@
+table sessions
+	lineageTag: 2d7d9439-f36d-49b0-808f-0ebe63a0c423
+	sourceLineageTag: [dbo].[sessions]
+
+	/// Number of sessions.
+	measure Sessions = COUNTROWS(sessions)
+		formatString: #,0
+		lineageTag: d349e370-031f-449b-bc9d-52bce0ad34a3
+
+	/// Number of registrations. One person registering for two sessions counts twice.
+	measure Registrations = COUNTROWS(registrations)
+		formatString: #,0
+		lineageTag: 0dedf2e2-b9a1-487e-9b66-afdb803b5653
+
+	/// Registrations where the person joined the session live.
+	measure Attendees = CALCULATE(COUNTROWS(registrations), registrations[attended] = TRUE())
+		formatString: #,0
+		lineageTag: d7270244-ddf9-406a-a770-429b8b109e75
+
+	/// Share of registrations that turned into live attendance.
+	measure 'Attendance Rate' = DIVIDE([Attendees], [Registrations])
+		formatString: 0.0%
+		lineageTag: 6a11d9f5-f3cb-4130-811b-b8318427cb31
+
+	/// Total seats available across sessions.
+	measure 'Total Capacity' = SUM(sessions[capacity])
+		formatString: #,0
+		lineageTag: 61c9e48a-e427-456e-b4b5-b1c075e2210a
+
+	/// Registrations divided by capacity. 90% or more means the session is filling up.
+	measure 'Fill Rate' = DIVIDE([Registrations], [Total Capacity])
+		formatString: 0.0%
+		lineageTag: 26b3096c-5c03-4798-8b6c-ecf2322bcbfb
+
+	/// Sessions with a fill rate of 90% or more.
+	measure 'Full Sessions' = COUNTROWS(FILTER(sessions, [Fill Rate] >= 0.9))
+		formatString: #,0
+		lineageTag: baf46f54-308c-4e59-bf88-6d3d613cf75c
+
+	/// Average feedback rating, from 1 (poor) to 5 (excellent).
+	measure 'Avg Rating' = AVERAGE(feedback[rating])
+		formatString: 0.00
+		lineageTag: 576fcc29-22b5-4002-97f3-6c5422b23d49
+
+	/// Number of feedback responses.
+	measure Responses = COUNTROWS(feedback)
+		formatString: #,0
+		lineageTag: fc906449-c75f-422e-a52e-b2b3aea8fe57
+
+	column session_id
+		dataType: int64
+		lineageTag: 5df51184-08b5-40e3-abbf-abeca808bc68
+		summarizeBy: count
+		sourceColumn: session_id
+
+	column session_title
+		dataType: string
+		lineageTag: d75cdfa0-4e0a-44b5-b01e-30e6e61e4026
+		summarizeBy: none
+		sourceColumn: session_title
+
+	column track
+		dataType: string
+		lineageTag: 44457362-2d4b-4117-be56-3bd17ca47163
+		summarizeBy: none
+		sourceColumn: track
+
+	column language
+		dataType: string
+		lineageTag: ba9960c6-42d6-4f81-8835-4d272806e341
+		summarizeBy: none
+		sourceColumn: language
+
+	column session_format
+		dataType: string
+		lineageTag: 34bdde1d-fe5a-4642-ad6e-0ed04be07e33
+		summarizeBy: none
+		sourceColumn: session_format
+
+	column session_date
+		dataType: dateTime
+		lineageTag: 554e2b9e-c98f-4b7d-b58b-a37b259b56c4
+		summarizeBy: none
+		sourceColumn: session_date
+
+	column speaker_id
+		dataType: int64
+		lineageTag: 30361b95-6bca-47a5-b82a-9a63812ebbdd
+		summarizeBy: count
+		sourceColumn: speaker_id
+
+	column capacity
+		dataType: int64
+		lineageTag: 91187bf2-20bb-4cd1-9a94-60303d792904
+		summarizeBy: sum
+		sourceColumn: capacity
+
+	partition sessions = entity
+		mode: directLake
+		source
+			entityName: sessions
+			expressionSource: DL_Lakehouse
+

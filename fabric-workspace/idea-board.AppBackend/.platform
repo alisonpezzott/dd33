@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "AppBackend",
+    "displayName": "idea-board"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "80590feb-0ca2-9175-4ce8-161cc47d6a36"
+  }
+}

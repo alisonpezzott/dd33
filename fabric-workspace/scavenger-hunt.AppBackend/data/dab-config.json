@@ -1,0 +1,104 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "entities": {
+    "Completion": {
+      "source": "Completions",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "delete",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "update",
+              "fields": {
+                "include": [
+                  "note",
+                  "playerName"
+                ],
+                "exclude": null
+              },
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "owner_id": {
+            "dbType": "NVARCHAR(200)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "completionKey": {
+            "dbType": "NVARCHAR(240)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "challengeId": {
+            "dbType": "NVARCHAR(30)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "playerName": {
+            "dbType": "NVARCHAR(60)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "note": {
+            "dbType": "NVARCHAR(240)",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_Completions",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [],
+          "checkConstraints": [
+            {
+              "name": "CK_Completions_playerName_minlen",
+              "expression": "LEN([playerName]) \u003E= 1"
+            },
+            {
+              "name": "CK_Completions_note_minlen",
+              "expression": "LEN([note]) \u003E= 1"
+            }
+          ],
+          "uniqueConstraints": [
+            {
+              "name": "UQ_Completions_completionKey",
+              "columns": [
+                "completionKey"
+              ]
+            }
+          ]
+        }
+      },
+      "relationships": null,
+      "mappings": null
+    }
+  }
+}

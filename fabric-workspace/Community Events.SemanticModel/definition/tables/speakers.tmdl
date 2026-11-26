@@ -1,0 +1,34 @@
+table speakers
+	lineageTag: 1ddc1510-26dd-4112-b484-67327e5dfd51
+	sourceLineageTag: [dbo].[speakers]
+
+	column speaker_id
+		dataType: int64
+		lineageTag: 3e040778-661b-40ee-abc3-a763c6ecb651
+		summarizeBy: count
+		sourceColumn: speaker_id
+
+	column speaker_name
+		dataType: string
+		lineageTag: 2c006ec0-8d1e-4117-8e24-e73446ce952e
+		summarizeBy: none
+		sourceColumn: speaker_name
+
+	column community_role
+		dataType: string
+		lineageTag: 319dd07b-7be5-48ca-a0c7-d710b8d4803c
+		summarizeBy: none
+		sourceColumn: community_role
+
+	column speaker_region
+		dataType: string
+		lineageTag: ad821ec0-07be-4a1c-b110-b35d958725f1
+		summarizeBy: none
+		sourceColumn: speaker_region
+
+	partition speakers = entity
+		mode: directLake
+		source
+			entityName: speakers
+			expressionSource: DL_Lakehouse
+
