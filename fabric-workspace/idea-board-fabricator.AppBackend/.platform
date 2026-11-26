@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "AppBackend",
+    "displayName": "idea-board-fabricator",
+    "description": "Lets teams submit ideas, browse proposals, and vote for the ideas they want prioritized."
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "ffe76d6e-eb66-905a-4625-b583ab68b74e"
+  }
+}

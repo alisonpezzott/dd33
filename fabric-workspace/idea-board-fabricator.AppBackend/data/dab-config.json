@@ -1,0 +1,133 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/latest/download/dab.draft.schema.json",
+  "entities": {
+    "Idea": {
+      "source": "Ideas",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "title": {
+            "dbType": "NVARCHAR(120)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "description": {
+            "dbType": "NVARCHAR(2000)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "category": {
+            "dbType": "NVARCHAR(40)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "owner_id": {
+            "dbType": "NVARCHAR(200)",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "createdAt": {
+            "dbType": "DATETIME2",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_Ideas",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [],
+          "checkConstraints": [
+            {
+              "name": "CK_Ideas_title_minlen",
+              "expression": "LEN([title]) \u003E= 1"
+            },
+            {
+              "name": "CK_Ideas_description_minlen",
+              "expression": "LEN([description]) \u003E= 1"
+            }
+          ],
+          "uniqueConstraints": []
+        }
+      },
+      "relationships": null,
+      "mappings": null
+    },
+    "IdeaVote": {
+      "source": "IdeaVotes",
+      "permissions": [
+        {
+          "role": "authenticated",
+          "actions": [
+            {
+              "action": "create",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            {
+              "action": "delete",
+              "policy": {
+                "database": "@claims.sub eq @item.owner_id"
+              }
+            },
+            "read"
+          ]
+        }
+      ],
+      "x-schema": {
+        "fields": {
+          "id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "idea_id": {
+            "dbType": "UNIQUEIDENTIFIER",
+            "nullable": false,
+            "defaultValue": null
+          },
+          "owner_id": {
+            "dbType": "NVARCHAR(200)",
+            "nullable": false,
+            "defaultValue": null
+          }
+        },
+        "constraints": {
+          "primaryKey": {
+            "name": "PK_IdeaVotes",
+            "columns": [
+              "id"
+            ]
+          },
+          "foreignKeys": [],
+          "checkConstraints": [],
+          "uniqueConstraints": []
+        }
+      },
+      "relationships": null,
+      "mappings": null
+    }
+  }
+}
